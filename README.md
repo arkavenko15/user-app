@@ -26,7 +26,8 @@ JavaScript (ES5+)
 
 ngRoute
 
-📂 Project Structure pgsql Копіювати Редагувати user-app/ ├── index.html ├── app.js ├── assets/ │ └── styles.css ├── services/ │ └── user.service.js ├── components/ │ ├── user-list/ │ │ ├── user-list.controller.js │ │ └── user-list.html │ ├── user-view/ │ │ ├── user-view.controller.js │ │ └── user-view.html │ └── user-form/ │ ├── user-form.directive.js │ ├── user-form.html │ └── user-form.css ├── pages/ │ ├── 403.html │ └── 404.html ⚙️ How to Run Install Live Server (Recommended)
+
+⚙️ How to Run Install Live Server (Recommended)
 
 Open the project folder in VS Code
 
