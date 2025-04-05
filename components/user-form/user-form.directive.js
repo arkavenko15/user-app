@@ -15,7 +15,7 @@ angular
   .directive("userForm", function () {
     return {
       restrict: "E",
-      scope: false, // <-- important: allow access to parent scope
+      scope: false,
       controller: "UserFormController",
       controllerAs: "formCtrl",
       bindToController: true,
@@ -34,7 +34,17 @@ angular
     }
 
     vm.submit = function () {
+      if ($scope.userForm.$invalid) {
+        angular.forEach($scope.userForm.$error, function (fields) {
+          angular.forEach(fields, function (field) {
+            field.$setTouched();
+          });
+        });
+        return;
+      }
+
       vm.errors = {};
+
       const response = id && id !== "new" ? UserService.update(vm.user.id, vm.user) : UserService.create(vm.user);
 
       if (response.error) {

@@ -6,13 +6,20 @@
     <div class="user-form__error" ng-show="formCtrl.errors.username">{{ formCtrl.errors.username }}</div>
   </div>
 
-  <div class="user-form__group" ng-repeat="field in ['first_name', 'last_name', 'email']">
-    <label class="user-form__label">{{ field.replace("_", " ") | uppercase }}</label>
+  <div
+    class="user-form__group"
+    ng-repeat="field in ['first_name', 'last_name', 'email']"
+    ng-class="{ 'user-form__group--error': userForm[field].$invalid && userForm[field].$touched }"
+  >
+    <label class="user-form__label">{{ field.replace('_', ' ') | uppercase }}</label>
+
     <input type="{{ field === 'email' ? 'email' : 'text' }}" name="{{ field }}" ng-model="formCtrl.user[field]" required class="user-form__input" />
+
     <div class="user-form__error" ng-show="userForm[field].$error.required && userForm[field].$touched">
-      {{ field.replace("_", " ") }} is required.
+      {{ field.replace('_', ' ') }} is required.
     </div>
-    <div class="user-form__error" ng-show="userForm.email.$error.email && userForm.email.$touched">Invalid email.</div>
+
+    <div class="user-form__error" ng-if="field === 'email' && userForm.email.$error.email && userForm.email.$touched">Invalid email address.</div>
   </div>
 
   <div class="user-form__group">
@@ -33,7 +40,8 @@
   </div>
 
   <div class="user-form__actions">
-    <button type="submit" class="user-form__button">Save</button>
+    <button type="submit" class="user-form__button" ng-disabled="userForm.$invalid">Save</button>
+
     <a href="#!/users" class="user-form__button user-form__button--secondary">Back</a>
   </div>
 </form>
@@ -50,5 +58,3 @@
     </div>
   </div>
 </div>
-
-
