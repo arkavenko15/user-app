@@ -1,0 +1,54 @@
+<form name="userForm" ng-submit="formCtrl.submit()" novalidate class="user-form">
+  <div class="user-form__group" ng-class="{ 'user-form__group--error': userForm.username.$invalid && userForm.username.$touched }">
+    <label class="user-form__label">Username</label>
+    <input name="username" type="text" ng-model="formCtrl.user.username" required class="user-form__input" />
+    <div class="user-form__error" ng-show="userForm.username.$error.required && userForm.username.$touched">Username is required.</div>
+    <div class="user-form__error" ng-show="formCtrl.errors.username">{{ formCtrl.errors.username }}</div>
+  </div>
+
+  <div class="user-form__group" ng-repeat="field in ['first_name', 'last_name', 'email']">
+    <label class="user-form__label">{{ field.replace("_", " ") | uppercase }}</label>
+    <input type="{{ field === 'email' ? 'email' : 'text' }}" name="{{ field }}" ng-model="formCtrl.user[field]" required class="user-form__input" />
+    <div class="user-form__error" ng-show="userForm[field].$error.required && userForm[field].$touched">
+      {{ field.replace("_", " ") }} is required.
+    </div>
+    <div class="user-form__error" ng-show="userForm.email.$error.email && userForm.email.$touched">Invalid email.</div>
+  </div>
+
+  <div class="user-form__group">
+    <label class="user-form__label">Password</label>
+    <input type="password" name="password" ng-model="formCtrl.user.password" user-password-validator required class="user-form__input" />
+    <div class="user-form__error" ng-show="userForm.password.$error.required && userForm.password.$touched">Password is required.</div>
+    <div class="user-form__error" ng-show="userForm.password.$error.pattern">Password must be 8+ chars, 1 number & 1 letter.</div>
+  </div>
+
+  <div class="user-form__group">
+    <label class="user-form__label">User Type</label>
+    <select name="user_type" ng-model="formCtrl.user.user_type" required class="user-form__input">
+      <option value="" disabled>Select type</option>
+      <option value="Admin">Admin</option>
+      <option value="Driver">Driver</option>
+    </select>
+    <div class="user-form__error" ng-show="userForm.user_type.$error.required && userForm.user_type.$touched">User type is required.</div>
+  </div>
+
+  <div class="user-form__actions">
+    <button type="submit" class="user-form__button">Save</button>
+    <a href="#!/users" class="user-form__button user-form__button--secondary">Back</a>
+  </div>
+</form>
+
+<!-- Unsaved Changes Modal -->
+<div class="modal" ng-show="confirmGuard.show">
+  <div class="modal__overlay" ng-click="confirmGuard.cancel()"></div>
+  <div class="modal__content">
+    <h3 class="modal__title">Unsaved Changes</h3>
+    <p class="modal__text">You have unsaved changes. Are you sure you want to leave?</p>
+    <div class="modal__actions">
+      <button class="modal__button modal__button--danger" ng-click="confirmGuard.proceed()">Leave</button>
+      <button class="modal__button" ng-click="confirmGuard.cancel()">Stay</button>
+    </div>
+  </div>
+</div>
+
+

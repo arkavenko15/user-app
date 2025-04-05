@@ -1,0 +1,6 @@
+<div class="user-view" ng-controller="UserViewController">
+  <h2 class="user-view__title">{{ userId === 'new' ? 'Create User' : 'Edit User' }}</h2>
+  <div ng-controller="UserFormController as formCtrl">
+    <user-form></user-form>
+  </div>
+</div>
